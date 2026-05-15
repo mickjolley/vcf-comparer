@@ -876,7 +876,7 @@ def main():
 
         curr_row = 1
         for p_name, dx, ds in r["tables"]:
-            hir_cm = 0
+            add_cm = 0
             for data, title in [(dx, p_name), (ds, f"{p_name} FIR")]:
                 if data.empty:
                     continue
@@ -892,12 +892,13 @@ def main():
                         cell.value = data.iloc[i][col]
                         cell.alignment = align
                         cell.border = border
-                        if (
-                            j == 4 
-                        ):  
-                            hir_cm += cell.value
+                        if j == 4: 
+                            if 'FIR' in title and cell.value < HIR_CUTOFF:
+                                add_cm += cell.value
+                            else:    
+                                add_cm += cell.value
                 curr_row = ws.max_row + 1
-            m_pairs[p_name] += round(hir_cm, 1)
+            m_pairs[p_name] += round(add_cm, 1)
         nr = 1
         if SCALE_ON and os.path.exists(
             os.path.join(WORKING_DIRECTORY, f"scale {c}.png")
