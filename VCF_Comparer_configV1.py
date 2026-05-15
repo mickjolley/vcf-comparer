@@ -18,6 +18,9 @@ SUBJECTS: Rename subject file by inserting _raw_dna after name. Both .csv and
 .txt files from all testing companies are accepted. PCV formatted files need not
 be renamed.
 Example: original file 37_S_Fred_123.csv. Renamedas 37_S_Fred_raw_dna123.csv.
+Leave blank if individuals from .vcf file are to be compared ti each other.
+Enter '*' if all SUBJECTS in a folder are to be compared with individuals from the
+.vcf file.
 
 CHROMOSOMES: Chromosome selected (1-23). More than one chromosome may be entered.
 Enter '*' for all chromosomes.
@@ -69,28 +72,28 @@ NO_CALL: Character to designate a no call.
 """
 
 # Path to vcf file. Add .vcf file to the end
-VCF_FILE_PATH = r"c:/dna/v62.HO.GBR.Orkney.DG.vcf"
+VCF_FILE_PATH = r"************"
 
 # Path to SUBJECTS DNA files. Add .vcf file to the end if .vcf file is to be processed.
-DNA_FILES_PATH = r"c:/dna files"
+DNA_FILES_PATH = r"**********"
 
 # Path to .xlsx file.
-WORKING_DIRECTORY = r"c:/vpphaser"
+WORKING_DIRECTORY = r"*********"
 
 # Path to min_map.txt file.
-MAP_PATH = r"c:/minmap"
+MAP_PATH = r"********"
 
 # Individuals from .vcf files to be compared.
-INDIVIDUALS = ["HG00096.DG", "HG00097.DG", "HG00110.DG", "HG00111.DG", "HG00115.DG"]
+INDIVIDUALS = ["****", "****", "****", "****", "****"]
 
 # SIBLINGS to be compared. Make sure that no two files share the same name.
-SUBJECTS = ["Jean", "Christine", "Mick"]
+SUBJECTS = ["****", "****", "****"]
 
 # Chromosome selected. Enter '*' to select all the chromosomes.
 CHROMOSOMES = ["*"]
 
 # Excel file name. Leave ".xlsx" out.
-EXCEL_FILE_NAME = "test16"
+EXCEL_FILE_NAME = "******"
 
 # Suppress no-matches. Set to True if display of no-matches is desired.
 SHOW_NO_MATCHES = False
