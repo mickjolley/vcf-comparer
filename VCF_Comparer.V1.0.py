@@ -894,7 +894,7 @@ def main():
                         cell.border = border
                         if (
                             j == 4 
-                        ):  # Only sum HIR segments for the total
+                        ):  
                             hir_cm += cell.value
                 curr_row = ws.max_row + 1
             m_pairs[p_name] += round(hir_cm, 1)
