@@ -1,4 +1,4 @@
-# VCF_Comparer.V1.0.py. Instructions for Use.
+# VCF_Comparer.V1.0.py.
 
 ## Overview
 VCF Comparer is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
