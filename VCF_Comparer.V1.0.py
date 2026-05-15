@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-VCF_Comparer_v3.py - Ultra-optimized VCF comparison script.
+VCF_Comparer.V1.0.py - Ultra-optimized VCF comparison script.
 Identifies Half-Identical Regions (HIR) and Fully-Identical Regions (FIR).
 Generates visual plots and an Excel report.
 
