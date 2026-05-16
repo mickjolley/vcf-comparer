@@ -40,8 +40,6 @@ from VCF_Comparer_configV1 import (
     RESOLUTION,
     HIR_CUTOFF,
     FIR_CUTOFF,
-    X_HIR_CUTOFF,
-    X_FIR_CUTOFF,
     SCALE_ON,
     FREEZE_COLUMN,
     HIR_SNP_MIN,
@@ -386,75 +384,30 @@ def find_segments(
         is_fir (bool): If True, search for Fully Identical Regions (m_vals == 2).
                        If False, search for Half Identical Regions (m_vals != 0).
     """
-    num_snps = len(m_vals)
-    if is_fir:
-        # FIR detection: Look for contiguous runs where both alleles match (m_vals == 2)
-        match_mask = m_vals == 2
-        diff = np.diff(match_mask.astype(int), prepend=0, append=0)
-        starts = np.where(diff == 1)[0]
-        ends = np.where(diff == -1)[0] - 1
-        segs = []
-        for s, e in zip(starts, ends):
-            n = e - s + 1
-            if n >= snp_min:
-                dcm = c_vals[e] - c_vals[s]
-                if dcm >= cutoff:
-                    segs.append(
-                        {
-                            "Chr": chrom,
-                            "Start Mb": p_vals[s],
-                            "Finish Mb": p_vals[e],
-                            "No. SNPs": n,
-                            "Length (cM)": round(dcm, 1),
-                        }
-                    )
-        return segs
-    else:
-        # HIR detection: Look for segments not interrupted by double-mismatches (m_vals == 0)
-        mismatch_indices = np.where(m_vals == 0)[0]
-        if len(mismatch_indices) == 0:
-            # Entire chromosome is a potential match
-            if num_snps >= snp_min:
-                dcm = c_vals[-1] - c_vals[0]
-                if dcm >= cutoff:
-                    return [
-                        {
-                            "Chr": chrom,
-                            "Start Mb": p_vals[0],
-                            "Finish Mb": p_vals[-1],
-                            "No. SNPs": num_snps,
-                            "Length (cM)": round(dcm, 1),
-                        }
-                    ]
-            return []
-
-        # Find "stoppers" - mismatches that are close enough to end a segment
-        mismatch_positions = p_vals[mismatch_indices]
-        dists = np.diff(mismatch_positions)
-        close = dists < mm_dist * 1000
-        stoppers = mismatch_indices[1:][close]
-
-        # Iterate through segments between stoppers
-        segs = []
-        last_stop = -1
-        for stop in list(stoppers) + [num_snps]:
-            s, e = last_stop + 1, stop - 1
-            if e >= s:
-                n = e - s + 1
-                if n >= snp_min:
-                    dcm = c_vals[e] - c_vals[s]
-                    if dcm >= cutoff:
-                        segs.append(
-                            {
-                                "Chr": chrom,
-                                "Start Mb": p_vals[s],
-                                "Finish Mb": p_vals[e],
-                                "No. SNPs": n,
-                                "Length (cM)": round(dcm, 1),
-                            }
-                        )
-            last_stop = stop
-        return segs
+    # Use contiguous runs logic for both FIR and HIR to ensure no mismatches are included.
+    # HIR: m_vals != 0 (at least one allele matches), FIR: m_vals == 2 (both alleles match).
+    match_mask = (m_vals == 2) if is_fir else (m_vals != 0)
+    
+    diff = np.diff(match_mask.astype(int), prepend=0, append=0)
+    starts = np.where(diff == 1)[0]
+    ends = np.where(diff == -1)[0] - 1
+    
+    segs = []
+    for s, e in zip(starts, ends):
+        n = e - s + 1
+        if n >= snp_min:
+            dcm = c_vals[e] - c_vals[s]
+            if dcm >= cutoff:
+                segs.append(
+                    {
+                        "Chr": chrom,
+                        "Start Mb": p_vals[s],
+                        "Finish Mb": p_vals[e],
+                        "No. SNPs": n,
+                        "Length (cM)": round(dcm, 1),
+                    }
+                )
+    return segs
 
 
 def analyze_chromosome(
@@ -465,8 +418,8 @@ def analyze_chromosome(
     and generates visualization images.
     """
     print(f"Analyzing chromosome {chrom}...")
-    hir_cutoff = config["X_HIR_CUTOFF"] if chrom == 23 else config["HIR_CUTOFF"]
-    fir_cutoff = config["X_FIR_CUTOFF"] if chrom == 23 else config["FIR_CUTOFF"]
+    hir_cutoff = config["HIR_CUTOFF"]
+    fir_cutoff = config["FIR_CUTOFF"]
 
     active_dfs = [df for df in dna_data.values() if not df.empty]
     if not active_dfs:
@@ -527,15 +480,17 @@ def analyze_chromosome(
         a1_1, a2_1 = geno_mats[p1]
         a1_2, a2_2 = geno_mats[p2]
 
+        # robust check for sharing at least one allele
+        shares_any = (a1_1 == a1_2) | (a1_1 == a2_2) | (a2_1 == a1_2) | (a2_1 == a2_2)
+        nc_mask = (a1_1 == 0) | (a1_2 == 0)
         full = ((a1_1 == a1_2) & (a2_1 == a2_2)) | ((a1_1 == a2_2) & (a2_1 == a1_2))
-        mismatch = (
-            (a1_1 == a2_1) & (a1_2 == a2_2) & (a1_1 != a1_2) & (a1_1 != 0) & (a1_2 != 0)
-        )
 
         m_vals = np.ones(num_pos, dtype=np.int8)
+        # 0: mismatch (shares nothing and no no-calls)
+        m_vals[~shares_any & ~nc_mask] = 0
+        # 2: full match
         m_vals[full] = 2
-        m_vals[mismatch] = 0
-        nc_mask = (a1_1 == 0) | (a1_2 == 0)
+        # No-calls are treated as full matches for segment detection
         m_vals[nc_mask] = 2
 
         p1_pos_arr = dna_data[p1]["position"].values
@@ -780,8 +735,6 @@ def main():
     config = {
         "HIR_CUTOFF": HIR_CUTOFF,
         "FIR_CUTOFF": FIR_CUTOFF,
-        "X_HIR_CUTOFF": X_HIR_CUTOFF,
-        "X_FIR_CUTOFF": X_FIR_CUTOFF,
         "HIR_SNP_MIN": HIR_SNP_MIN,
         "FIR_SNP_MIN": FIR_SNP_MIN,
         "MM_DIST": MM_DIST,
