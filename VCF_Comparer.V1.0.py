@@ -820,7 +820,7 @@ def main():
     ]
 
     chrom_list = (
-        list(range(1, 24))
+        list(range(1, 23))
         if not CHROMOSOMES or "*" in CHROMOSOMES
         else [int(c) for c in CHROMOSOMES]
     )
