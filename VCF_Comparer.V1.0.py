@@ -893,10 +893,22 @@ def main():
                         cell.alignment = align
                         cell.border = border
                         if j == 4: 
-                            if 'FIR' in title and cell.value < HIR_CUTOFF:
+                            if 'FIR' not in title:
+                                # This is an HIR segment, always add to total
                                 add_cm += cell.value
-                            else:    
-                                add_cm += cell.value
+                            else:
+                                # This is an FIR segment
+                                # Check if it is contained within any reported HIR segment (in dx)
+                                f_row = data.iloc[i]
+                                is_in_hir = False
+                                if not dx.empty:
+                                    for _, h_row in dx.iterrows():
+                                        if (f_row["Start Mb"] >= h_row["Start Mb"] and 
+                                            f_row["Finish Mb"] <= h_row["Finish Mb"]):
+                                            is_in_hir = True
+                                            break
+                                if not is_in_hir:
+                                    add_cm += cell.value
                 curr_row = ws.max_row + 1
             m_pairs[p_name] += round(add_cm, 1)
         nr = 1
