@@ -43,10 +43,6 @@ HIR_CUTOFF: Default value = 7 cM
 
 FIR_CUTOFF: Default value = 1 cM.
 
-X_HIR_CUTOFF: X chromosome cutoff (cM). The default is 15.
-
-X_FIR_CUTOFF: X chromosome FIR cutoff (cM). The default 15.
-
 FIR_TABLES: Set to True if display of FIR tables is desired.
 
 SCALE_ON: Turn scale on and off. Set to False if not required. Default = True
@@ -68,29 +64,29 @@ NO_CALL: Character to designate a no call.
 
 """
 
-# Path to vcf file. Add .vcf file to the end
-VCF_FILE_PATH = r"c:/dna/orkney.vcf"
+# Path to vcf file. Include .vcf file.
+VCF_FILE_PATH = r"*********"
 
-# Path to SUBJECTS DNA files. Add .vcf file to the end if .vcf file is to be processed.
-DNA_FILES_PATH = r"c:/dna files"
+# Path to SUBJECTS DNA files.
+DNA_FILES_PATH = r"*********"
 
 # Path to .xlsx file.
-WORKING_DIRECTORY = r"c:/vpphaser"
+WORKING_DIRECTORY = r"********"
 
 # Path to min_map.txt file.
-MAP_PATH = r"c:/minmap"
+MAP_PATH = r"*********"
 
-# Individuals from .vcf files to be compared.
-INDIVIDUALS = ['HG00100.DG','HG00111.DG']
+# Individuals from .vcf files to be compared. Enter '*' for all individuals in the .vcf file are desired.
+INDIVIDUALS = ['******','******','******']
 
-# SIBLINGS to be compared. Make sure that no two files share the same name.
-SUBJECTS = ['Mick']
+# SUBJECTS to be compared. Make sure that no two files share the same name. Enter '*' if all subjects in the folder are desired.
+SUBJECTS = ['****','****','****']
 
-# Chromosome selected. Enter '*' to select all the chromosomes.
+# Chromosome selected. Enter '*' to select all the chromosomes. Otherwise enter chromosomes separated by a comma.
 CHROMOSOMES = ["*"]
 
 # Excel file name. Leave ".xlsx" out.
-EXCEL_FILE_NAME = "ork"
+EXCEL_FILE_NAME = "*******"
 
 # Suppress no-matches. Set to True if display of no-matches is desired.
 SHOW_NO_MATCHES = False
