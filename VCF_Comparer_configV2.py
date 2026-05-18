@@ -76,16 +76,16 @@ NO_CALL: Character to designate a no call.
 """
 
 # Path to vcf file. Include .vcf file.
-VCF_FILE_PATH = r"c:/dna/ancients.vcf"
+VCF_FILE_PATH = r"********"
 
 # Path to SUBJECTS DNA files.
-DNA_FILES_PATH = r"c:/dna files"
+DNA_FILES_PATH = r"********"
 
 # Path to .xlsx file.
-WORKING_DIRECTORY = r"c:/vpphaser"
+WORKING_DIRECTORY = r"*********"
 
 # Path to min_map.txt file.
-MAP_PATH = r"c:/minmap"
+MAP_PATH = r"********"
 
 # Individuals from .vcf files to be compared. Enter '*' or "*" for all individuals 
 # in the .vcf file are desired.
@@ -93,20 +93,20 @@ INDIVIDUALS = ["*"]
 
 # SUBJECTS to be compared. Make sure that no two files share the same name. Enter 
 # '*' or "*" if all subjects in the folder are desired.
-SUBJECTS = ["Mick"]
+SUBJECTS = ["****","****"]
 
 # Chromosome selected. Enter '*' or "*" to select all the chromosomes. Otherwise 
 # enter chromosomes separated by a comma.
 CHROMOSOMES = ["*"]
 
 # Excel file name. Leave ".xlsx" out.
-EXCEL_FILE_NAME = "ancs"
+EXCEL_FILE_NAME = "******"
 
 # Suppress no-matches. Set to True if display of no-matches is desired.
 SHOW_NO_MATCHES = False
 
 # Chromosome true size. Set to False for normalized size.
-CHROM_TRUE_SIZE = True
+CHROM_TRUE_SIZE = False
 
 # Linearize the chromosome.
 LINEAR_CHROMOSOME = False
@@ -117,26 +117,26 @@ LINEAR_CHROMOSOME = False
 RESOLUTION = 1
 
 # HIR Minimum segment length (cM). The default is 7.
-HIR_CUTOFF = 3
+HIR_CUTOFF = 7
 
 # FIR cutoff. FIRs less than 1cM in length are probably not significant.
 FIR_CUTOFF = 1
 
 # Automatically set hir SNP min and fir SNP min according to HIR_CUTOFF and
 # FIR_CUTOFF. Set to True for HIR_CUTOFFS less than 7.
-AUTO_SNP_MIN = True
+AUTO_SNP_MIN = False
 
 # Percent no calls allowed. Default is 10. Use higher values for ancients.
-PC_NO_CALLS_ALLOWED = 60
+PC_NO_CALLS_ALLOWED = 10
 
 """
 NO_CALLS protocols below.
 """
 
-# Drop INDIVIDUALSNPs with a NO_CALL. Default value = True.
+# Drop INDIVIDUAL SNPs with a NO_CALL. Default value = True.
 DROP_NO_CALLS = True
 
-# Option to designate no calls as matches. Set to True if and  DROP_NO_CALLS
+# Option to designate no-calls as matches. Set to True if DROP_NO_CALLS
 # = False and no-calls are to be treated as matches.
 NO_CALLS_MATCHES = True
 
