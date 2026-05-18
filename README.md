@@ -24,7 +24,12 @@ segment is set to 30 times the cutoff.
 to experiment with setting it to False and experimenting with the other methods of dealing with no-calls available.
 
 4) NO_CALLS_MATCHES. Set to False if you want to treat no-calls as mismatches. Set to True if you want to treat no-calls 
-   as FIRS. Use NO_CALLS_CONTIG_MAX_NO to set the number of contiguous no-calls that are allowed in HIRS.  
+   as FIRS. Use NO_CALLS_CONTIG_MAX_NO to set the number of contiguous no-calls that are allowed in HIRS.
+
+Sample .vcf files are provided. Orkney.vcf is a modern group of individuals (1000 Genomes). Endogamy is prevalent in this 
+population. Ancients.vcf is composed of a mixture of ancient individuals. To find out more about them try this website:
+https://amtdb.org/samples.
+
 ---
 
 ## 1. Setup & Requirements
