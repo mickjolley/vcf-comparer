@@ -1,5 +1,5 @@
 
-# VCF_Comparer.V1.0.py.
+# VCF_Comparer.V2.0.py.
 
 ## Overview
 VCF Comparer is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
@@ -9,6 +9,22 @@ individual raw DNA files (e.g. AncestryDNA, 23andMe).
 The tool is highly optimized using `numpy` and `pandas` for vectorized processing, making it suitable for large 
 datasets.
 
+VCF_Comparer.V1.0.py performs well for .vcf files of modern indiviuals, with a small number of no-calls and a 
+HIR_CUTOFF of 7. However, for .vcf files of ancient individuals, with a high percentage of no-calls and the need 
+to lower the HIR_CUTOFF to 3 or below, VCF_Comparer.V2.0.py was developed. V2.0 possesses a number of enhanced
+features.
+
+1) The ability set a threshold on the percentage of no-calls in a .vcf file. The default value (for moderns) is 10%. 
+   This value must be increased for ancients (try 50% to start). This will filter out files of poor quality.
+
+2) An AUTO_SNP_MIN feature. Set this to True when using a HIR_CUTOFF of less than 7. The minimum number of SNPs in a 
+segment is set to 30 times the cutoff.   
+
+3) DROP_NO_CALLS. The default is true. If you would like to look at .vcf files with a lot of no-calls, you might want 
+to experiment with setting it to False and experimenting with the other methods of dealing with no-calls available.
+
+4) NO_CALLS_MATCHES. Set to False if you want to treat no-calls as mismatches. Set to True if you want to treat no-calls 
+   as FIRS. Use NO_CALLS_CONTIG_MAX_NO to set the number of contiguous no-calls that are allowed in HIRS.  
 ---
 
 ## 1. Setup & Requirements
@@ -40,10 +56,10 @@ Edit the configuration file to set your paths and analysis parameters:
 - `MAP_PATH`: Folder containing `min_map.txt`.
 
 ### Individual Selection
-- `INDIVIDUALS = ["*"]`: Loads all samples from the VCF.
-- `INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the VCF file.
-- `SUBJECTS = ["*"]`: Loads all files from `DNA_FILES_PATH`.
-- `SUBJECTS = ["PersonX", "PersonY"]`: Loads specific individual files.
+-  'INDIVIDUALS = ["*"] or ['*']': Loads all samples from the VCF.
+-  'INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the VCF file.
+-  'SUBJECTS = ["*"] or ['*']': Loads all files from `DNA_FILES_PATH`.
+-  'SUBJECTS = ["PersonX", "PersonY"]`: Loads specific individual files.
 - **Comparison Logic:**
   - If `SUBJECTS` are provided, they are compared against 'INDIVIDUALS'.
   - If `SUBJECTS` is empty, `INDIVIDUALS` are compared against each other.
