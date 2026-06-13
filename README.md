@@ -1,33 +1,22 @@
 
-# VCF_Comparer.V2.0.py.
+# VCF_Comparer.V3.0.py.
 
 ## Overview
 VCF Comparer is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
 and **Fully-Identical Regions (FIR)** between individuals. It supports input from multi-sample VCF files and 
-individual raw DNA files (e.g. AncestryDNA, 23andMe).
+individual raw DNA files (e.g. Ancestry, 23andMe).
 
-The tool is highly optimized using `numpy` and `pandas` for vectorized processing, making it suitable for large 
-datasets.
+VCF_Comparer.V3.0.py has a number of advanced features.
 
-VCF_Comparer.V1.0.py performs well for .vcf files of modern indiviuals, with a small number of no-calls and a 
-HIR_CUTOFF of 7. However, for .vcf files of ancient individuals, with a high percentage of no-calls and the need 
-to lower the HIR_CUTOFF to 3 or below, VCF_Comparer.V2.0.py was developed. V2.0 possesses a number of enhanced
-features.
+1) PC_NO_CALLS_ALLOWED. This option gives the user the ability set a threshold on the percentage of no-calls in a .vcf 
+   file. The default value (for moderns) is 10%. This value may be increased for ancient samples (try 50% to start). 
+   This will filter out files of poor quality. The default value is 10%.
 
-1) The ability set a threshold on the percentage of no-calls in a .vcf file. The default value (for moderns) is 10%. 
-   This value must be increased for ancients (try 50% to start). This will filter out files of poor quality.
-
-2) An AUTO_SNP_MIN feature. Set this to True when using a HIR_CUTOFF of less than 7. The minimum number of SNPs in a 
-segment is set to 30 times the cutoff.   
-
-3) DROP_NO_CALLS. The default is true. If you would like to look at .vcf files with a lot of no-calls, you might want 
-to experiment with setting it to False and experimenting with the other methods of dealing with no-calls available.
-
-4) NO_CALLS_MATCHES. Set to False if you want to treat no-calls as mismatches. Set to True if you want to treat no-calls 
-   as FIRS. Use NO_CALLS_CONTIG_MAX_NO to set the number of contiguous no-calls that are allowed in HIRS.
+2) PARENTAL_RELATIONSHIP. This option calculates the total cMs of runs of homozygosity. Multiply this value by four to 
+   get the approximate equivalent of match values.
 
 Sample .vcf files are provided. Orkney.vcf is a modern group of individuals (1000 Genomes). Endogamy is prevalent in this 
-population. Ancients.vcf is composed of a mixture of ancient individuals. To find out more about them try this website:
+population. Ancients.vcf is composed of a mixture of ancient individuals. To find out more about them consult this website:
 https://amtdb.org/samples.
 
 ---
@@ -42,13 +31,13 @@ https://amtdb.org/samples.
   ```
 
 ### File Structure
-- `VCF_Comparer.V1.0.py`: The main execution script.
-- `VCF_Comparer_configV1.py`: Configuration file for paths and thresholds.
+- `VCF_Comparer.V3.0.py`: The main execution script.
+- `VCF_Comparer_configV3.py`: Configuration file for paths and thresholds.
 - `min_map.txt`: A tab-delimited genetic map file (required for cM calculations).
 
 ---
 
-## 2. Configuration (`VCF_Comparer_configV1.py`)
+## 2. Configuration (`VCF_Comparer_configV3.py`)
 
 Edit the configuration file to set your paths and analysis parameters:
 
@@ -64,14 +53,15 @@ Edit the configuration file to set your paths and analysis parameters:
 -  'INDIVIDUALS = ["*"] or ['*']': Loads all samples from the VCF.
 -  'INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the VCF file.
 -  'SUBJECTS = ["*"] or ['*']': Loads all files from `DNA_FILES_PATH`.
--  'SUBJECTS = ["PersonX", "PersonY"]`: Loads specific individual files.
+-  'SUBJECTS = ["PersonX", "PersonY"]': Loads specific individual files.
 - **Comparison Logic:**
-  - If `SUBJECTS` are provided, they are compared against 'INDIVIDUALS'.
-  - If `SUBJECTS` is empty, `INDIVIDUALS` are compared against each other.
-
+  - If 'SUBJECTS' and 'INDIVIDUALS' are provided, they are compared against 'INDIVIDUALS'.
+  - If 'SUBJECTS' is empty, 'INDIVIDUALS' are compared against each other.
+  - If 'INDIVIDUALS' is empty, 'SUBJECTS' are compared against each other.
+  
 ### Analysis Thresholds
-- `HIR_CUTOFF`: Minimum cM length for HIR segments (e.g., `7.0`).
-- `FIR_CUTOFF`: Minimum cM length for FIR segments (e.g., `2.0`).
+- `HIR_CUTOFF`: Minimum cM length for HIR segments (e.g., `7`).
+- `FIR_CUTOFF`: Minimum cM length for FIR segments (e.g., `1`).
 - `MM_DIST`: The "stopper" distance in Kb. If two mismatches are closer than this, the segment ends. (Default: `1000`).
 - `HIR_SNP_MIN` / `FIR_SNP_MIN`: Minimum SNPs required to validate a segment.
 
@@ -79,7 +69,7 @@ Edit the configuration file to set your paths and analysis parameters:
 
 ## 3. Visualization Modes
 
-VCF_Comparer.V1.0.py offers three distinct ways to visualize chromosomes in the Excel report:
+VCF_Comparer.V3.0.py offers three distinct ways to visualize chromosomes in the Excel report:
 
 ### A. SNP-Based (Default)
 - **Setting:** `CHROM_TRUE_SIZE = False`, `LINEAR_CHROMOSOME = False`
@@ -93,6 +83,7 @@ VCF_Comparer.V1.0.py offers three distinct ways to visualize chromosomes in the 
 - **Setting:** `CHROM_TRUE_SIZE = True`
 - **Behavior:** Chromosomes are drawn proportional to their actual size (e.g., Chromosome 1 is much wider than Chromosome 22).
 
+In addition, 'SHOW_NO_MATCHES = False' suppresses the display of no matches.  
 ---
 
 ## 4. Understanding the Output
@@ -102,16 +93,20 @@ VCF_Comparer.V1.0.py offers three distinct ways to visualize chromosomes in the 
 - **Segment Tables:** Lists every matching segment found for every pair, including Start/Finish Mb, SNP count, and cM length.
 - **Visual Plots:**
   - **Top Bar (Colors):**
-    - <span style="color:limegreen">Green</span>: Full match (FIR).
-    - <span style="color:yellow">Yellow</span>: Half match (HIR).
-    - <span style="color:crimson">Red</span>: Mismatch.
-    - <span style="color:grey">Grey</span>: No data for one or both individuals.
+    - Green: Full match (FIR).
+    - Yellow: Half match (HIR).
+    - Red: Nomatch (NIR).
+    - Grey: No data for one or both individuals.
   - **Bottom Bar (Blocks):**
-    - <span style="color:blue">Blue Block</span>: Validated HIR segment (above cutoff).
-    - <span style="color:orange">Orange Block</span>: Validated FIR segment (above cutoff).
+    - Blue: Validated HIR segment (above cutoff).
+    - Orange: Validated FIR segment (above cutoff).
+	- Black: NIR segment.
 
-### CSV Summary
+### .csv Summary
 - A summary of total cM shared between all pairs across all analyzed chromosomes.
+
+### _ROH.csv Summary
+- A summary of total cM of ROHs in individuals' DNA files. Multiply by four to approximate matches shared between two individuals.
 
 ---
 
