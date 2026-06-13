@@ -1,32 +1,21 @@
 # -*- coding: utf-8 -*-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-VP_configV2.py is the configuration file for Visual_Phaser.V2.0.py.
+VCF_Comparer_configV3.py is the configuration file for VCF_Comparer.V3.0.py.
 
-The ability to process ,vcf files has been added to V1.1. Add the .vcf file to
-the FILES_PATH. Add individuals to SIBLINGS.
+VCF_FILE_PATH: Path to .vcf file. Include ".vcf" suffix.
 
-FILES_PATH: Path to folder where the DNA files are stored. If .vcf files are to
-processed add the .vcf file to the end. Example FILES_PATH = r"c:/dna.xyx.vcf".
+DNA_FILES_PATH: Path to DNA files.
 
-WORKING_DIRECTORY: Folder where the .xlsx and .py files will be stored.
+WORKING_DIRECTORY: Folder where the .xlsx and .csv files will be stored.
 
 MAP_PATH: Path to folder containing min_map.txt.
 
-SIBLINGS: Two minimum. Make sure that the DNA files are in the
-PixelChromosomeView (PCV) format. Examples are 'Ancestry_Fred_raw_dna.txt' and
-'23andMe_Susan_raw_dna.txt'. These files must tab delimited .txt files. Use
-ancestry_csv_to_tab_converter.py or not_ancestry_csv_to_tab_converter.py to
-convert .csv files to the correct format.
+INDIVIDUALS: List of individuals to load from the VCF file. Enter ['*'] to load
+all individuals. Leave empty ([]) to load none.
 
-PHASED_FILES: Enter comma-separated names of the individuals in phased files to
-be compared to each other. They will not be compared to siblings. The default
-assignment for no calls is "X".
-
-EVIL_TWINS: Enter comma-separated names of the individuals in evil-twin files
-to be compared to SIBLINGS.
-
-COUSINS: Enter comma-separated names of the individuals to be compared with all SIBLINGS in a
-pre-existing file. Leave blank ([]) when creating a new file.
+SUBJECTS: List of individuals to be compared from DNA_FILES_PATH. Enter ['*'] 
+to load all subjects. Leave empty ([]) to load none. SUBJECT file names should 
+contain '_raw_dna' after the name.
 
 CHROMOSOMES: Chromosome selected (1-23). More than one chromosome may be entered.
 Leave empty for all chromosomes.
@@ -44,38 +33,9 @@ LINEAR_CHROMOSOME: Set to True if you want to see the linearized chromosomes.
 RESOLUTION will be ignored unless it is 10 (10x resolution). CHROM_TRUE_SIZE is
 automatically set to False.
 
-MERGE_FILES: Set to True if merging of DNA files is desired. If it is desired
-to treat match pairs separately, set to False. This is useful if one of the
-files is missing a lot of SNPs or if LINEAR_CHROMOSOME is set to True. Missing
-SNPs are shown in gray. Default = True.
-
 RESOLUTION: Default value = 1. For normalized size it is advised to keep it
 under 10. Set to 100 for full length chromosomes. If LINEAR_CHROMOSOME is set
 to "True", RESOLUTION is automatically set to 1, unless it is set to 10.
-
-AUTO_REC_PNTS: Set AUTO_REC_PNTS to True if calculation of RPs is desired. ARP
-is not activated in LINEAR_CHROMOSOME mode or when cousins are being added.
-The first time the program is run, if AUTO_ REC_PNTS is set to True, it is
-recommended that it is run with two siblings and chromosome 1 only. If the RPs
-do not line up correctly, the SCALE_FACTOR needs to be adjusted (see below).
-
-ARP_TOLERANCE: When AUTO_REC_PNTS is activated, columns with pixel size
-less than this value will be deleted. Set to minimum desired column width
-(pixels). Default = 5 (RESOLUTION is set to 1). ARP_TOLERANCE is adjusted for
-RESOLUTION.
-
-AUTO_RP_ASSIGN: Set AUTO_RP_ASSIGN to True if automatic assignment of
-recombination points is desired.
-
-REPAIR_FILES: Converts isolated NIR and HIR SNPs to FIR. Converts isolated
-NIR SNPs to HIR. Default = True.
-
-SCALE_FACTOR: The column width per pixel factor. Default value = 0.1351.This may
-require adjustment to correctly position the recombination points. If the RPs
-are to the right of where they should be, decrease SCALE_FACTOR (try 0.13 to
-start), and vice versa (try 0.14 to start). Repeat until the RPs line up
-correctly. It is suggested that this procedure is performed using two siblings
-and chromosome 1 only. This only has to be performed once.
 
 HIR_CUTOFF: Default value = 7 cM
 
@@ -112,37 +72,39 @@ NO_CALL: Character assigned to a no-call IN PHASED FILES.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 # Path to .vcf file. 
-VCF_FILE_PATH = r'c:/dna/orkney.vcf'
+VCF_FILE_PATH = r'********'
 
 # Path to DNA files.
-DNA_FILES_PATH = r'c:/Test files' 
+DNA_FILES_PATH = r'********' 
 
 # Path to .xlsx file.
-WORKING_DIRECTORY = r'c:/vpphaser'
+WORKING_DIRECTORY = r'********'
 
 # Path to min_map.txt file.
-MAP_PATH = r'c:/minmap'
+MAP_PATH = r'*******'
 
 # List of individuals to load from the VCF file. 
 # Enter ['*'] to load all individuals. Leave empty ([]) to load none.
-INDIVIDUALS = []
+INDIVIDUALS = ['****','****','****']
 
-# SIBLINGS to be compared from DNA_FILES_PATH. 
+# SUBJECTS to be compared from DNA_FILES_PATH. 
 # Enter ['*'] to load all subjects. Leave empty ([]) to load none.
-SUBJECTS = ['*']
+SUBJECTS = ['****','****','****']
 
 # Chromosome selected. Leave empty to select all the chromosomes.
 CHROMOSOMES = []
 
 # Excel file name. Leave ".xlsx" out.
-EXCEL_FILE_NAME = 'tst1'
+EXCEL_FILE_NAME = '*****'
 
-PC_NO_CALLS_ALLOWED = 60
+# Percentage n0-calls allowed in files.
+PC_NO_CALLS_ALLOWED = 10
 
-PARENTAL_RELATIONSHIP = True
+# Calculate total cM in ROHs.
+PARENTAL_RELATIONSHIP = False
 
 # Suppress no-matches. Set to True if display of no-matches is desired.
-SHOW_NO_MATCHES = False
+SHOW_NO_MATCHES = True
 
 # Chromosome true size. Set to False for normalized size.
 CHROM_TRUE_SIZE = False
@@ -156,11 +118,12 @@ LINEAR_CHROMOSOME = False
 RESOLUTION = 1
 
 # HIR Minimum segment length (cM). The default is 7.
-HIR_CUTOFF = 3
+HIR_CUTOFF = 7
 
 # FIR cutoff. FIRs less than 1cM in length are probably not significant.
 FIR_CUTOFF = 1
 
+# ROH cutoff (Mb).
 ROH_CUTOFF = 5
 
 # Display Fir tables.
