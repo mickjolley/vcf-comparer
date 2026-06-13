@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Visual_Phaser.V2.*.py performs comparisons between siblings and cousins and
-stores the results in a .xlsx file.
-
-.vcf Files now can be processed.
+VCF_Comparer.V3.0.py performs comparisons between individuals from .vcf files and testing companies' DNA files and
+stores the results in a .xlsx file. Parental relationships may also be estimated.
 
 © 2026 Mick Jolley (mickj1948@gmail.com)
 
