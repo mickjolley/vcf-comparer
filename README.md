@@ -1,19 +1,16 @@
 
-# VCF_Comparer.V3.0.py.
+# VCF_Comparer.V3.1.py.
 
 ## Overview
 VCF Comparer is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
 and **Fully-Identical Regions (FIR)** between individuals. It supports input from multi-sample VCF files and 
 individual raw DNA files (e.g. Ancestry, 23andMe).
 
-VCF_Comparer.V3.0.py has a number of advanced features.
+VCF_Comparer.V3.1.py corrects a couple of minor issues present in VCF_Comparer.V3.0.py.
 
-1) PC_NO_CALLS_ALLOWED. This option gives the user the ability set a threshold on the percentage of no-calls in a .vcf 
-   file. The default value (for moderns) is 10%. This value may be increased for ancient samples (try 50% to start). 
-   This will filter out files of poor quality. The default value is 10%.
+1) If a .vcf file cannot be found the user is informed of the fact.
 
-2) PARENTAL_RELATIONSHIP. This option calculates the total cMs of runs of homozygosity. Multiply this value by four to 
-   get the approximate equivalent of match values.
+2) Match pairs with 0 cM matching are now included in the summary and .csv file of the results.
 
 Sample .vcf files are provided. Orkney.vcf is a modern group of individuals (1000 Genomes). Endogamy is prevalent in this 
 population. Ancients.vcf is composed of a mixture of ancient individuals. To find out more about them consult this website:
