@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-VCF_Comparer_configV3.py is the configuration file for VCF_Comparer.V3.0.py.
+VCF_Comparer_configV3.py is the configuration file for VCF_Comparer.V3.1.py.
 
 VCF_FILE_PATH: Path to .vcf file. Include ".vcf" suffix.
 
@@ -23,6 +23,10 @@ Leave empty for all chromosomes.
 EXCEL_FILE_NAME: Name of the .xlsx file. Do not include the ".xlsx", This is
 added automatically.
 
+PC_NO_CALLS_ALLOWED: Percentage no-calls allowed in files. Default value = 10.
+
+PARENTAL_RELATIONSHIP: Calculate total cM in ROHs. Default = False.
+
 SHOW_NO_MATCHES: Set to False if the display of match pairs with no matching
 segments is not desired. This is the recommended default value for cousin
 matches. If only siblings are being compared set this to True.
@@ -40,10 +44,6 @@ to "True", RESOLUTION is automatically set to 1, unless it is set to 10.
 HIR_CUTOFF: Default value = 7 cM
 
 FIR_CUTOFF: Default value = 1 cM.
-
-X_HIR_CUTOFF: X chromosome cutoff (cM). The default is 15.
-
-X_FIR_CUTOFF: X chromosome FIR cutoff (cM). The default 15.
 
 FIR_TABLES: Set to True if display of FIR tables is desired.
 
@@ -64,8 +64,6 @@ HIR_SNP_MIN: Minimum number of HIR SNPs. Default value = 200
 FIR_SNP_MIN: Minimum number of FIR SNPs. Default value = 75
 
 MM_DIST: Number of Kbs between mismatches to end segment. Default = 1000.
-
-NO_CALL: Character assigned to a no-call IN PHASED FILES.
 
 © 2026 Mick Jolley (mickj1948@gmail.com)
 
@@ -135,10 +133,6 @@ FREEZE_COLUMN = 'A'
 # Linux font string. An alternative is:
 # "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
 LINUX_FONT_STRING = '*/fonts/truetype/family/DejaVuSerif-Bold.ttf'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-You shouldn't have to change the parameters below.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 # Minimum number of HIR SNPs.
 HIR_SNP_MIN = 200
