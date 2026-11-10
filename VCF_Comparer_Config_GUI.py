@@ -20,7 +20,7 @@ TOOLTIPS = {
     'DNA_FILES_PATH': 'Path to folder where the DNA files are stored.',
     'WORKING_DIRECTORY': 'Folder where the .xlsx and .csv files will be stored.',
     'MAP_PATH': 'Path to folder containing min_map.txt.',
-    'INDIVIDUALS': '''List of individuals to load from the VCF file. Enter ['*'] to load 
+    'INDIVIDUALS': '''List of individuals to load from the VCF file. Enter [*] to load 
      all individuals. Leave empty ([]) to load none.''',
     'SUBJECTS': '''List of individuals to be compared from DNA_FILES_PATH. 
     Enter ['*'] to load all subjects. Leave empty ([]) to load none. SUBJECT 
@@ -519,7 +519,7 @@ class VPConfigBoaFrame(wx.Frame):
               name='indivividualsText', parent=self.filesPanel, pos=wx.Point(8, 25),
               size=wx.Size(715, 21), style=0, value='')
         
-        self.individualsText.SetToolTip("Enter '*' for all.")
+        self.individualsText.SetToolTip("Enter * for all.")
 
         self.subjectsLabel = wx.StaticText(id=wx.ID_ANY,
               label='SUBJECTS (comma-separated)', name='subjectsLabel',
