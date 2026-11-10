@@ -47,8 +47,8 @@ Edit the configuration file to set your paths and analysis parameters:
 - `MAP_PATH`: Folder containing `min_map.txt`.
 
 ### Individual Selection
--  'INDIVIDUALS = '*': Loads all samples from the VCF.
--  'INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the VCF file.
+-  'INDIVIDUALS = '*': Loads all samples from the .vcf file.
+-  'INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the .vcf file.
 -  'SUBJECTS = '*': Loads all files from `DNA_FILES_PATH`.
 -  'SUBJECTS = ["PersonX", "PersonY"]': Loads specific individual files.
 - **Comparison Logic:**
