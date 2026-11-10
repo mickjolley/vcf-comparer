@@ -28,7 +28,7 @@ https://amtdb.org/samples.
   ```
 
 ### File Structure
-- `VCF_Comparer.V3.0.py`: The main execution script.
+- `VCF_Comparer.V3.1.py`: The main execution script.
 - `VCF_Comparer_configV3.py`: Configuration file for paths and thresholds.
 - `min_map.txt`: A tab-delimited genetic map file (required for cM calculations).
 
@@ -39,7 +39,7 @@ https://amtdb.org/samples.
 Edit the configuration file to set your paths and analysis parameters:
 
 ### Paths
-- `VCF_FILE_PATH`: Path to your `.vcf` file.
+- `VCF_FILE_PATH`: Path to your `.vcf` file. Make sure that you include the .vcf suffix.
 - `DNA_FILES_PATH`: Folder containing raw DNA files. Files must contain `_raw_dna` after the name 
                     (e.g., `XYZ_John_raw_dna.csv`). Both .csv and .txt files from all testing companies
 					can be used.
@@ -47,9 +47,9 @@ Edit the configuration file to set your paths and analysis parameters:
 - `MAP_PATH`: Folder containing `min_map.txt`.
 
 ### Individual Selection
--  'INDIVIDUALS = asterisk': Loads all samples from the VCF.
+-  'INDIVIDUALS = '*': Loads all samples from the VCF.
 -  'INDIVIDUALS = ["SampleA", "SampleB"]`: Loads specific samples from the VCF file.
--  'SUBJECTS = asterisk': Loads all files from `DNA_FILES_PATH`.
+-  'SUBJECTS = '*': Loads all files from `DNA_FILES_PATH`.
 -  'SUBJECTS = ["PersonX", "PersonY"]': Loads specific individual files.
 - **Comparison Logic:**
   - If 'SUBJECTS' and 'INDIVIDUALS' are provided, they are compared against 'INDIVIDUALS'.
@@ -62,11 +62,17 @@ Edit the configuration file to set your paths and analysis parameters:
 - `MM_DIST`: The "stopper" distance in Kb. If two mismatches are closer than this, the segment ends. (Default: `1000`).
 - `HIR_SNP_MIN` / `FIR_SNP_MIN`: Minimum SNPs required to validate a segment.
 
+### PC_NO_CALLS_ALLOWED
+Sets the percentage of no calls allowed. The default is 10. Use a higher value for ancient and archaic .vcf files.
+
+### PARENTAL_RELATIONSHIP
+Estimates the relationship between  SUBJECT or INDIVIDUALs' parents by calculating the total ROHs (runs of homozygosity; cM). 
+
 ---
 
 ## 3. Visualization Modes
 
-VCF_Comparer.V3.0.py offers three distinct ways to visualize chromosomes in the Excel report:
+VCF_Comparer.V3.1.py offers three distinct ways to visualize chromosomes in the Excel report:
 
 ### A. SNP-Based (Default)
 - **Setting:** `CHROM_TRUE_SIZE = False`, `LINEAR_CHROMOSOME = False`
