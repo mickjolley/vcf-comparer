@@ -86,7 +86,7 @@ VCF_Comparer.V3.1.py offers three distinct ways to visualize chromosomes in the 
 
 ### C. True Size (Physical Proportions)
 - **Setting:** `CHROM_TRUE_SIZE = True`
-- **Behavior:** Chromosomes are drawn proportional to their actual size (e.g., Chromosome 1 is much wider than Chromosome 22).
+- **Behavior:** Chromosomes are drawn proportional to their actual size (e.g., Chromosome 1 is much longer than Chromosome 22).
 
 In additition, 'SHOW_NO_MATCHES = False' suppresses the display of no matches.
   
