@@ -67,6 +67,8 @@ Sets the percentage of no calls allowed. The default is 10. Use a higher value f
 
 ### PARENTAL_RELATIONSHIP
 Estimates the relationship between  SUBJECT or INDIVIDUALs' parents by calculating the total ROHs (runs of homozygosity; cM). 
+Multiply by four to approximate shared cMs derived from comparison programs. For example, a total ROH of 200 cM is equivalent
+to a match value of 800 cM, which is first cousin territory.
 
 ---
 
