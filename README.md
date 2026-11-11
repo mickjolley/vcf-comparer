@@ -50,7 +50,7 @@ Edit the configuration file to set your paths and analysis parameters:
 -  'INDIVIDUALS = *': Loads all samples from the .vcf file.
 -  'INDIVIDUALS = SampleA, "SampleB': Loads specific samples from the .vcf file.
 -  'SUBJECTS = *': Loads all files from `DNA_FILES_PATH`.
--  'SUBJECTS = PersonX", "PersonY': Loads specific individual files.
+-  'SUBJECTS = PersonX, PersonY': Loads specific individual files.
 - **Comparison Logic:**
   - If 'SUBJECTS' and 'INDIVIDUALS' are provided, they are compared against 'INDIVIDUALS'.
   - If 'SUBJECTS' is empty, 'INDIVIDUALS' are compared against each other.
