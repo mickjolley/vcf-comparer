@@ -1,17 +1,20 @@
 
-# VCF_Comparer_Config_GUI.exe
+# VCF_Comparer.V3.1.py.
 
 ## Overview
-Launches the GUI to VCF_Comparer_configV3.py, which is the configuration file for VCF_Comparer.V3.1.exe.
-VCF_Comparer.V3.1.exe is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
+VCF Comparer is a high-performance bioinformatics tool designed to identify **Half-Identical Regions (HIR)** 
 and **Fully-Identical Regions (FIR)** between individuals. It supports input from multi-sample VCF files and 
 individual raw DNA files (e.g. Ancestry, 23andMe).
+
+VCF_Comparer.V3.1.py corrects a couple of minor issues present in VCF_Comparer.V3.0.py.
+
+1) If a .vcf file cannot be found the user is informed of the fact.
+
+2) Match pairs with 0 cM matching are now included in the summary and .csv file of the results.
 
 Sample .vcf files are provided. Orkney.vcf is a modern group of individuals (1000 Genomes). Endogamy is prevalent in this 
 population. Ancients.vcf is composed of a mixture of ancient individuals. To find out more about them consult this website:
 https://amtdb.org/samples.
-
-Double click on VCF_Comparer_Config_GUI.exe to launch the GUI. Reload defaults, fill in the blanks, save the configuration and run.
 
 ---
 
@@ -26,11 +29,14 @@ Double click on VCF_Comparer_Config_GUI.exe to launch the GUI. Reload defaults, 
 
 ### File Structure
 - `VCF_Comparer.V3.1.py`: The main execution script.
-- `VCF_Comparer_Config_GUI.exe`: Launches the GUI.
 - `VCF_Comparer_configV3.py`: Configuration file for paths and thresholds.
 - `min_map.txt`: A tab-delimited genetic map file (required for cM calculations).
 
 ---
+
+## 2. Configuration (`VCF_Comparer_configV3.py`)
+
+Edit the configuration file to set your paths and analysis parameters:
 
 ### Paths
 - `VCF_FILE_PATH`: Path to your `.vcf` file. Make sure that you include the .vcf suffix.
