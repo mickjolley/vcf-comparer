@@ -26,7 +26,7 @@ Double click on VCF_Comparer_Config_GUI.exe to launch the GUI. Reload defaults, 
 
 ### File Structure
 - `VCF_Comparer.V3.1.py`: The main execution script.
--  VCF_Comparer_Config_GUI.exe' : Launches the GUI
+- `VCF_Comparer_Config_GUI.exe`: Launches the GUI.
 - `VCF_Comparer_configV3.py`: Configuration file for paths and thresholds.
 - `min_map.txt`: A tab-delimited genetic map file (required for cM calculations).
 
