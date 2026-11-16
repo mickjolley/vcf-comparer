@@ -70,30 +70,30 @@ MM_DIST: Number of Kbs between mismatches to end segment. Default = 1000.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 # Path to .vcf file. 
-VCF_FILE_PATH = 'C:\\DNA\\archaics3.vcf'
+VCF_FILE_PATH = r'********'
 
 # Path to DNA files.
-DNA_FILES_PATH = ''
+DNA_FILES_PATH = r'********' 
 
 # Path to .xlsx file.
-WORKING_DIRECTORY = 'C:\\VPphaser'
+WORKING_DIRECTORY = r'********'
 
 # Path to min_map.txt file.
-MAP_PATH = 'C:\\MinMap'
+MAP_PATH = r'*******'
 
 # List of individuals to load from the VCF file. 
 # Enter ['*'] to load all individuals. Leave empty ([]) to load none.
-INDIVIDUALS = ['Denisova3.DG', 'Denisova_light.SG', 'Sunghir2.SG']
+INDIVIDUALS = ['****','****','****']
 
 # SUBJECTS to be compared from DNA_FILES_PATH. 
 # Enter ['*'] to load all subjects. Leave empty ([]) to load none.
-SUBJECTS = []
+SUBJECTS = ['****','****','****']
 
 # Chromosome selected. Leave empty to select all the chromosomes.
 CHROMOSOMES = []
 
 # Excel file name. Leave ".xlsx" out.
-EXCEL_FILE_NAME = 'vvv'
+EXCEL_FILE_NAME = '*****'
 
 # Percentage n0-calls allowed in files.
 PC_NO_CALLS_ALLOWED = 10
@@ -116,10 +116,10 @@ LINEAR_CHROMOSOME = False
 RESOLUTION = 1
 
 # HIR Minimum segment length (cM). The default is 7.
-HIR_CUTOFF = 7.0
+HIR_CUTOFF = 7
 
 # FIR cutoff. FIRs less than 1cM in length are probably not significant.
-FIR_CUTOFF = 1.0
+FIR_CUTOFF = 1
 
 # ROH cutoff (Mb).
 ROH_CUTOFF = 5
